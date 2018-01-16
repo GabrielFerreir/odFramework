@@ -11,10 +11,44 @@ const lista2 = [
   {nome: 'Mario', idade: 23},
   {nome: 'S', idade: 18},
   {nome: 'Muller', idade: 30},
+];
 
-]
+let nome = '';
+
+let booleana = true;
+
+
 window.onload = () => {
   _odRepeat();
+  _refreshModel();
+  alteraNome();
+  alteraBoleana();
+
+  setInterval(() => {
+    _refreshModel();
+  }, 50);
+}
+
+
+function alteraNome() {
+  setTimeout(() => {
+    nome = 'Gabriel';
+    // _refreshModel();
+  }, 100);
+
+    setTimeout(() => {
+    nome = 'Gabriel de Paula';
+    // _refreshModel();
+  }, 200);
+
+    setTimeout(() => {
+    nome = 'Gabriel de Paula Ferreira';
+    // _refreshModel();
+  }, 300);
+}
+
+function alteraBoleana() {
+  booleana = !booleana;
 }
 
 function _odRepeat() {
@@ -25,7 +59,7 @@ function _odRepeat() {
     let odRepeatValue = item.querySelectorAll('[od-repeat-value]'); // Pegando todos os od-repeat-value
     listaArray.forEach((listaItem) => { // Acessando cada item do array
       let newItem =  item.cloneNode(true); // Clonando
-      console.log(newItem);
+      // console.log(newItem);
         newItem.innerHTML = ''; // Limpando novo elemento
         odRepeatValue.forEach((valueRepeat) => {
         let newodRepeatValue = valueRepeat.cloneNode(true); // Clonando o elemento para que possamos trabalhar em elementos diferentes
@@ -37,5 +71,40 @@ function _odRepeat() {
       item.parentNode.appendChild(newItem); // Adicionando itens
     });
     item.parentNode.removeChild(item); // Tirando o item desnecessario que fica no topo
-});
+  });
+  }
+
+
+function _refreshModel() {
+  _odModel();
+  _odHide();
+}
+
+
+function _odModel() {
+    var allmodels = document.querySelectorAll('[od-model]');
+  allmodels.forEach((item) => {
+    let valueAtt = eval(item.getAttribute('od-model'));
+    if(item.innerHTML != valueAtt) {
+      item.innerHTML = valueAtt;
+    }
+  });
+}
+
+function _odHide() {
+  var allmodels = document.querySelectorAll('[od-hide]');
+  allmodels.forEach((item) => {
+    let valueAtt = eval(item.getAttribute('od-hide'));
+    if(valueAtt) {
+      if(!item.classList.contains('od-hide')) {
+        item.classList.add('od-hide');
+      }
+    } else {
+      if(item.classList.contains('od-hide')) {
+        item.classList.remove('od-hide');
+      }
+    }
+
+
+  })
 }
