@@ -68,7 +68,8 @@ function _odRepeat() {
         let newItem = cloneOfItem.cloneNode(true);
         itemModel.forEach((itemModelList) => {
           let searchQuery = `[od-repeat-value=${itemModelList}]`;
-          newItem.querySelector(searchQuery).innerHTML = itemList[itemModelList] || '';
+          let defaultValue = newItem.querySelector(searchQuery).getAttribute('od-repeat-default-value') || '';
+          newItem.querySelector(searchQuery).innerHTML = itemList[itemModelList] || defaultValue;
           
         });
           fatherCloneOfItem.appendChild(newItem);
