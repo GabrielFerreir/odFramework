@@ -54,19 +54,24 @@ function alteraBoleana() {
 function _odRepeat() {
     let odRepeat = document.querySelectorAll('[od-repeat]');
     odRepeat.forEach((item) => {
+
+      let cloneOfItem = item.cloneNode(true);
+      let fatherCloneOfItem = item.parentNode;
+      fatherCloneOfItem.removeChild(item);
+
       let itemModel = [];
-      let models = item.querySelectorAll('[od-repeat-value]');
+      let models = cloneOfItem.querySelectorAll('[od-repeat-value]');
       models.forEach((model) => {
         itemModel.push(model.getAttribute('od-repeat-value'));
       });
-      eval(item.getAttribute('od-repeat')).forEach((itemList) => {
-        let newItem = item.cloneNode(true);
+      eval(cloneOfItem.getAttribute('od-repeat')).forEach((itemList) => {
+        let newItem = cloneOfItem.cloneNode(true);
         itemModel.forEach((itemModelList) => {
           let searchQuery = `[od-repeat-value=${itemModelList}]`;
           newItem.querySelector(searchQuery).innerHTML = itemList[itemModelList] || '';
           
         });
-          item.parentNode.appendChild(newItem);
+          fatherCloneOfItem.appendChild(newItem);
       });
     });
   }
